@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1784501097118,
+      "tag": "0000_small_reavers",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1784501336177,
+      "tag": "0001_dashing_bromley",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1785000000000,
+      "tag": "0002_add_free_payment_status",
+      "breakpoints": true
+    }
+  ]
+}
