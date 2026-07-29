@@ -9,6 +9,7 @@ import { trpc } from "@/lib/trpc";
 import FeaturedSection from "./FeaturedSection";
 import AISearchModal from "@/components/AISearchModal";
 import AdBanner from "@/components/AdBanner";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -136,6 +137,8 @@ export default function Home() {
 
       {/* AI Search Modal */}
       <AISearchModal open={aiSearchOpen} onOpenChange={setAISearchOpen} />
+
+      <Footer />
     </div>
   );
 }

@@ -9,6 +9,10 @@ import ToolDetail from "./pages/ToolDetail";
 import CategoryPage from "./pages/CategoryPage";
 import SubmitTool from "./pages/SubmitTool";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminLogin from "./pages/AdminLogin";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function Router() {
   return (
@@ -17,7 +21,11 @@ function Router() {
       <Route path={"/category/:slug"} component={CategoryPage} />
       <Route path={"/tool/:slug"} component={ToolDetail} />
       <Route path={"/submit"} component={SubmitTool} />
+      <Route path={"/admin/login"} component={AdminLogin} />
       <Route path={"/admin"} component={AdminDashboard} />
+      <Route path={"/privacy"} component={PrivacyPolicy} />
+      <Route path={"/about"} component={About} />
+      <Route path={"/contact"} component={Contact} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

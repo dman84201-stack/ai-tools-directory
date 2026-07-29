@@ -1,10 +1,9 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
+import { publicProcedure, router, adminProcedure } from "./_core/trpc";
 import { z } from "zod";
 import { getApprovedTools, getToolBySlug, searchTools, getToolsByCategory, getAllCategories, getCategoryBySlug, getCategoryById, getPendingSubmissions, getSubmissionById, createSubmission, updateSubmission, createTool, createFeaturedListing, getFeaturedTools, getToolsForAISearch } from "./db";
-import { ENV } from "./_core/env";
 
 export const appRouter = router({
   system: systemRouter,
@@ -115,26 +114,17 @@ Recommend the top 5 most relevant tools. Return ONLY a JSON array of tool names:
   }),
 
   admin: router({
-    submissions: protectedProcedure.query(async ({ ctx }) => {
-      if (ctx.user?.openId !== ENV.ownerOpenId) {
-        throw new Error("Unauthorized: Owner access only");
-      }
+    submissions: adminProcedure.query(async () => {
       return await getPendingSubmissions();
     }),
-    getSubmission: protectedProcedure
+    getSubmission: adminProcedure
       .input(z.number())
-      .query(async ({ input, ctx }) => {
-        if (ctx.user?.openId !== ENV.ownerOpenId) {
-          throw new Error("Unauthorized: Owner access only");
-        }
+      .query(async ({ input }) => {
         return await getSubmissionById(input);
       }),
-    approveSubmission: protectedProcedure
+    approveSubmission: adminProcedure
       .input(z.number())
-      .mutation(async ({ input, ctx }) => {
-        if (ctx.user?.openId !== ENV.ownerOpenId) {
-          throw new Error("Unauthorized: Owner access only");
-        }
+      .mutation(async ({ input }) => {
         const submission = await getSubmissionById(input);
         if (!submission) throw new Error("Submission not found");
 
@@ -180,15 +170,12 @@ Recommend the top 5 most relevant tools. Return ONLY a JSON array of tool names:
 
         return await updateSubmission(input, { status: "approved" });
       }),
-    rejectSubmission: protectedProcedure
+    rejectSubmission: adminProcedure
       .input(z.object({
         id: z.number(),
         reason: z.string(),
       }))
-      .mutation(async ({ input, ctx }) => {
-        if (ctx.user?.openId !== ENV.ownerOpenId) {
-          throw new Error("Unauthorized: Owner access only");
-        }
+      .mutation(async ({ input }) => {
         return await updateSubmission(input.id, { status: "rejected", rejectionReason: input.reason });
       }),
   }),
