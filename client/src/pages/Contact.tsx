@@ -3,7 +3,7 @@ import { ArrowLeft, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // TODO: replace with a real inbox you actually check before launch.
-const CONTACT_EMAIL = "toolmint9@gmail.com";
+const CONTACT_EMAIL = "hello@stackfind.cc";
 
 export default function Contact() {
   return (
